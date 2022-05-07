@@ -12,5 +12,5 @@
 --no-abort-on-error
 #--skip-playlist-after-errors 20
 --playlist-reverse
--P ~/storage/Downloads/
--o  ~/storage/Downloads/%(extractor)s/%(uploader)s/%(title)s.%(id)s.%(ext)s
+-P ~/storage/Downloads/%(extractor)s/%(uploader)s/%(title)s.%(id)s.%(ext)s
+-o ~/storage/Downloads/%(extractor)s/%(uploader)s/%(title)s.%(id)s.%(ext)s
