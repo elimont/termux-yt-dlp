@@ -15,7 +15,7 @@ read -p "When you are ready just press enter:"
 
 # Basic setup
 termux-setup-storage
-sleep 2
+sleep 5
 pkg update
 pkg install python ffmpeg
 pip install -U pip
