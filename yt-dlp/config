@@ -1,7 +1,5 @@
---windows-filenames
---write-subs
---write-auto-subs
-#--embed-subs
+--no-windows-filenames
+--embed-subs
 --sub-format srt
 --convert-subs srt
 --sub-langs en
@@ -14,5 +12,5 @@
 --no-abort-on-error
 #--skip-playlist-after-errors 20
 --playlist-reverse
--P "~/storage/shared/Download/"
+-P "~/storage/downloads/"
 -o "%(extractor)s/%(uploader)s/%(playlist)s/%(playlist_index)s - %(title)s [%(id)s].%(ext)s"
