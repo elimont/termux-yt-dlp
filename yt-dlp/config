@@ -11,4 +11,4 @@
 #--skip-playlist-after-errors 20
 --playlist-reverse
 -P "~/storage/downloads/"
--o "%(extractor)s/%(uploader)s/%(title)s - %(duration>%M:%S)s.%(ext)s"
+-o "%(extractor)s/%(uploader)s/%(title)s - %(duration_string)s.%(ext)s"
