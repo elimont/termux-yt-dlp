@@ -1,14 +1,5 @@
---embed-subs
---sub-format srt
---sub-langs en
---embed-metadata
---embed-thumbnail
---embed-chapters
---merge-output-format mkv
---sponsorblock-remove sponsor,selfpromo,interaction
---no-mtime
---no-abort-on-error
-#--skip-playlist-after-errors 20
---playlist-reverse
--P "~/storage/downloads/"
--o "%(extractor)s/%(uploader)s/%(title)s - %(duration_string)s.%(ext)s"
+yt-dlp --embed-subs --embed-metadata --embed-thumbnail --embed-chapters \
+--sub-lang=en --sub-format=srt --merge-output-format=mkv \
+--sponsorblock-remove=sponsor,selfpromo,interaction \
+--no-mtime --no-abort-on-error --playlist-reverse \
+-o ~/storage/downloads/%(extractor)s/%(uploader)s/%(title)s\ -\ %(duration)s.%(ext)s \
