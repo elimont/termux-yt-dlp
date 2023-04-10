@@ -9,7 +9,6 @@ Bash script to setup yt-dlp in Termux
 2. Open termux
 
 ```bash
-pkg update
 yes | pkg update
 yes | pkg install git
 git clone https://github.com/elimont/termux-yt-dlp.git
