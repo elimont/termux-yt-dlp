@@ -1,7 +1,12 @@
-#!/bin/bash
+#!/data/data/com.termux/files/usr/bin/bash
 
 # Set the default output directory
-OUTPUT_DIR="/sdcard/Download"
+OUTPUT_DIR="$HOME/storage/downloads"
+
+BLUE='\e[34m'
+NC='\e[0m'
+YTDLP_CONFIG_FOLDER="${HOME}/.config/yt-dlp/"
+TERMUXURLOPENER_CONFIG_FOLDER="${HOME}/bin/"
 
 clear
 
@@ -10,19 +15,4 @@ if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
 
     # Determine if the URL is a playlist or channel
     if [[ "$1" =~ .*/playlist.* ]] || [[ "$1" =~ .*list=.* ]]; then
-        OUTPUT_FORMAT="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
-        echo "Playlist detected"
-    else
-        OUTPUT_FORMAT="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
-        echo "Channel detected"
-    fi
-
-    # Download the video with options for subtitles, metadata, and output directory
-    yt-dlp --embed-subs --embed-metadata --write-sub --write-auto-sub \
-           -o "$OUTPUT_DIR/$OUTPUT_FORMAT" \
-           --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
-           "$1"
-
-else
-    echo "Error: No URL provided"
-fi
+        OUTPUT_FORMAT="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel
