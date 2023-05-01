@@ -1,5 +1,6 @@
 yt-dlp --embed-subs --embed-metadata --embed-thumbnail --embed-chapters \
---sub-lang=en --sub-format=srt --merge-output-format=mkv \
---sponsorblock-remove=sponsor,selfpromo,interaction \
+--sub-lang en --write-sub --write-auto-sub --sub-format srt \
+--merge-output-format mkv --sponsorblock remove=sponsor,selfpromo,interaction \
 --no-mtime --no-abort-on-error --playlist-reverse \
--o ~/storage/downloads/%(extractor)s/%(uploader)s/%(title)s\ -\ %(duration)s.%(ext)s \
+--format bestvideo+bestaudio/best --audio-quality 0 --write-thumbnail \
+-o "~/storage/downloads/%(extractor)s/%(uploader)s/%(title)s - %(duration)s.%(ext)s"
