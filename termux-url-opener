@@ -1,18 +1,43 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-# Set the default output directory
-OUTPUT_DIR="$HOME/storage/downloads"
-
 BLUE='\e[34m'
 NC='\e[0m'
 YTDLP_CONFIG_FOLDER="${HOME}/.config/yt-dlp/"
 TERMUXURLOPENER_CONFIG_FOLDER="${HOME}/bin/"
 
-clear
+echo "Hi, This script sets up an environment to download various videos from various apps."
+sleep 1
 
-if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
-    echo -e "Downloading video...\\n>URL: ${1}\\n"
+# Check if required packages are installed
+if ! command -v python >/dev/null 2>&1; then
+    echo "Python is not installed. Installing python..."
+    yes | pkg install python
+fi
 
-    # Determine if the URL is a playlist or channel
-    if [[ "$1" =~ .*/playlist.* ]] || [[ "$1" =~ .*list=.* ]]; then
-        OUTPUT_FORMAT="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel
+if ! command -v ffmpeg >/dev/null 2>&1; then
+    echo "FFmpeg is not installed. Installing ffmpeg..."
+    yes | pkg install ffmpeg
+fi
+
+# Check if storage permission is granted
+if [ ! -d "$HOME/storage" ]; then
+    echo -e "${BLUE}Please grant storage access to Termux by going to Settings > Apps > Termux > Permissions > Storage.${NC}"
+    exit 1
+fi
+
+echo -e "\n\n${BLUE}Requirements:${NC}"
+echo "    1. Allow storage access to Termux."
+echo "    2. A working internet connection."
+read -p "When you are ready just press enter:"
+
+# Basic setup
+termux-setup-storage
+sleep 5
+pkg update
+pip install -U pip
+pip install -U wheel
+pip install -U yt-dlp
+mkdir -p $TERMUXURLOPENER_CONFIG_FOLDER
+ln -s $YTDLP_CONFIG_FOLDER/termux-url-opener $TERMUXURLOPENER_CONFIG_FOLDER/termux-url-opener
+
+echo -e "${BLUE}Congratulations!!! Your setup is complete.${NC}\n\n"
