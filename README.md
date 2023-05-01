@@ -9,11 +9,12 @@ Bash script to setup yt-dlp in Termux
 2. Open termux
 
 ```bash
-yes | pkg update
-yes | pkg install git
-git clone https://github.com/elimont/termux-yt-dlp.git
-cd termux-yt-dlp
+yes | pkg update && 
+yes | pkg install git 
+&& git clone https://github.com/elimont/termux-yt-dlp.git 
+&& cd termux-yt-dlp && 
 yes | bash install.sh
+
 ```
 
 3. Enable Termux [popup over other applications](https://bubble.dynalogix.eu/enable-display-pop-up-windows-on-new-xiaomi-phones/):
