@@ -4,6 +4,13 @@ BLUE='\e[34m'
 NC='\e[0m'
 YTDLP_CONFIG_FOLDER="${HOME}/.config/yt-dlp/"
 TERMUXURLOPENER_CONFIG_FOLDER="${HOME}/bin/"
+OUTPUT_DIR="/sdcard/Download"
+
+# Check if a URL was provided as an argument
+if [[ $# -ne 1 ]]; then
+    echo "Error: No URL provided"
+    exit 1
+fi
 
 echo "Hi, This script sets up an environment to download various videos from various apps."
 sleep 1
@@ -41,4 +48,21 @@ mkdir -p $TERMUXURLOPENER_CONFIG_FOLDER
 cp -r -u $YTDLP_CONFIG_FOLDER ~/.config/
 cp termux-url-opener "${TERMUXURLOPENER_CONFIG_FOLDER}/"
 
-echo -e "${BLUE}Congratulations!!! Your setup is complete.${NC}\n\n"
+echo -e "Downloading video...\\n>URL: ${1}\\n"
+
+# Determine if the URL is a playlist or channel
+if [[ "$1" =~ .*/playlist.* ]] || [[ "$1" =~ .*list=.* ]]; then
+    OUTPUT_FORMAT="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
+    echo "Playlist detected"
+else
+    OUTPUT_FORMAT="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
+    echo "Channel detected"
+fi
+
+# Download the video with options for subtitles, metadata, and output directory
+yt-dlp --embed-subs --embed-metadata --write-sub --write-auto-sub \
+       -o "$OUTPUT_DIR/$OUTPUT_FORMAT" \
+       --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
+       "$1"
+
+echo -e "${BLUE}Download complete.${NC}\n\n"
