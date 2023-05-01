@@ -16,7 +16,8 @@ read -p "When you are ready just press enter:"
 termux-setup-storage
 sleep 5
 pkg update -y
-pkg install -y python ffmpeg
+pkg install -y python termux-packages
+python -m ensurepip --upgrade
 pip install -U pip
 pip install -U wheel
 pip install -U yt-dlp
