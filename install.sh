@@ -5,8 +5,26 @@ NC='\e[0m'
 YTDLP_CONFIG_FOLDER="${HOME}/.config/yt-dlp/"
 TERMUXURLOPENER_CONFIG_FOLDER="${HOME}/bin/"
 
-echo "Hi, This script setup an environment to download various videos from various apps"
+echo "Hi, This script sets up an environment to download various videos from various apps."
 sleep 1
+
+# Check if required packages are installed
+if ! command -v python >/dev/null 2>&1; then
+    echo "Python is not installed. Please install it using 'pkg install python'."
+    exit 1
+fi
+
+if ! command -v ffmpeg >/dev/null 2>&1; then
+    echo "FFmpeg is not installed. Please install it using 'pkg install ffmpeg'."
+    exit 1
+fi
+
+# Check if storage permission is granted
+if [ ! -d "$HOME/storage" ]; then
+    echo -e "${BLUE}Please grant storage access to Termux by going to Settings > Apps > Termux > Permissions > Storage.${NC}"
+    exit 1
+fi
+
 echo -e "\n\n${BLUE}Requirements:${NC}"
 echo "    1. Allow storage access to Termux."
 echo "    2. A working internet connection."
