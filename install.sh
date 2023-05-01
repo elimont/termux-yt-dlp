@@ -10,13 +10,13 @@ sleep 1
 
 # Check if required packages are installed
 if ! command -v python >/dev/null 2>&1; then
-    echo "Python is not installed. Please install it using 'pkg install python'."
-    exit 1
+    echo "Python is not installed. Installing python..."
+    yes | pkg install python
 fi
 
 if ! command -v ffmpeg >/dev/null 2>&1; then
-    echo "FFmpeg is not installed. Please install it using 'pkg install ffmpeg'."
-    exit 1
+    echo "FFmpeg is not installed. Installing ffmpeg..."
+    yes | pkg install ffmpeg
 fi
 
 # Check if storage permission is granted
@@ -34,7 +34,6 @@ read -p "When you are ready just press enter:"
 termux-setup-storage
 sleep 5
 pkg update
-pkg install python ffmpeg
 pip install -U pip
 pip install -U wheel
 pip install -U yt-dlp
