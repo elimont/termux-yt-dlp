@@ -1,4 +1,4 @@
-#!/data/data/com.termux/files/usr/bin/bash
+#!/usr/bin/env bash
 
 BLUE='\e[34m'
 NC='\e[0m'
@@ -11,12 +11,12 @@ sleep 1
 # Check if required packages are installed
 if ! command -v python >/dev/null 2>&1; then
     echo "Python is not installed. Installing python..."
-    yes | pkg install python
+    yes '' | pkg install python
 fi
 
 if ! command -v ffmpeg >/dev/null 2>&1; then
     echo "FFmpeg is not installed. Installing ffmpeg..."
-    yes | pkg install ffmpeg
+    yes '' | pkg install ffmpeg
 fi
 
 # Check if storage permission is granted
@@ -34,10 +34,10 @@ read -p "When you are ready just press enter:"
 termux-setup-storage
 sleep 5
 pkg update
-pip install -U pip
-pip install -U wheel
-pip install -U yt-dlp
+pip install pip
+pip install wheel
+pip install yt-dlp
 mkdir -p $TERMUXURLOPENER_CONFIG_FOLDER
-ln -s $YTDLP_CONFIG_FOLDER/termux-url-opener $TERMUXURLOPENER_CONFIG_FOLDER/termux-url-opener
+ln -sf $YTDLP_CONFIG_FOLDER/termux-url-opener $TERMUXURLOPENER_CONFIG_FOLDER/termux-url-opener
 
 echo -e "${BLUE}Congratulations!!! Your setup is complete.${NC}\n\n"
