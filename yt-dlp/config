@@ -2,4 +2,4 @@ yt-dlp --embed-subs --embed-metadata --embed-thumbnail --embed-chapters \
 --sub-lang=en --sub-format=srt --merge-output-format=mkv \
 --sponsorblock-mode=remove \
 --no-mtime --no-abort-on-error --playlist-reverse \
--o "~/storage/downloads/%(extractor)s/%(uploader:limit)s/%(title:limit)s.mkv" "$1"
+-o "~/storage/downloads/%(extractor)s/%(uploader)s/%(title)s%(ext)s"
