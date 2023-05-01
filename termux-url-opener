@@ -13,7 +13,7 @@ if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
         opt="$CHANNEL"
         echo "Channel detected"
     fi
-    yt-dlp -o "/sdcard/Download/$opt" -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' "$1"
+    yt-dlp -o "/sdcard/Download/$opt" -f 'bestvideo[ext=mkv]+bestaudio[ext=m4a]/best[ext=mkv]/best' --embed-subs --sub-lang en "$1"
 else
     echo "Error: No URL provided"
 fi
