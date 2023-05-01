@@ -1,43 +1,20 @@
-#!/usr/bin/env bash
 
-BLUE='\e[34m'
-NC='\e[0m'
-YTDLP_CONFIG_FOLDER="${HOME}/.config/yt-dlp/"
-TERMUXURLOPENER_CONFIG_FOLDER="${HOME}/bin/"
+#!/bin/bash
+clear
 
-echo "Hi, This script sets up an environment to download various videos from various apps."
-sleep 1
+PLAYLIST="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
+CHANNEL="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
 
-# Check if required packages are installed
-if ! command -v python >/dev/null 2>&1; then
-    echo "Python is not installed. Installing python..."
-    yes '' | pkg install python
+if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
+    echo -e "Downloading video...\\n>URL: ${1}\\n"
+    if [[ "$1" =~ .*/playlist.* ]] || [[ "$1" =~ .*list=.* ]]; then
+        opt="$PLAYLIST"
+        echo "Playlist detected"
+    else
+        opt="$CHANNEL"
+        echo "Channel detected"
+    fi
+    yt-dlp -o "/sdcard/Download/$opt" -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' "$1"
+else
+    echo "Error: No URL provided"
 fi
-
-if ! command -v ffmpeg >/dev/null 2>&1; then
-    echo "FFmpeg is not installed. Installing ffmpeg..."
-    yes '' | pkg install ffmpeg
-fi
-
-# Check if storage permission is granted
-if [ ! -d "$HOME/storage" ]; then
-    echo -e "${BLUE}Please grant storage access to Termux by going to Settings > Apps > Termux > Permissions > Storage.${NC}"
-    exit 1
-fi
-
-echo -e "\n\n${BLUE}Requirements:${NC}"
-echo "    1. Allow storage access to Termux."
-echo "    2. A working internet connection."
-read -p "When you are ready just press enter:"
-
-# Basic setup
-termux-setup-storage
-sleep 5
-pkg update
-pip install pip
-pip install wheel
-pip install yt-dlp
-mkdir -p $TERMUXURLOPENER_CONFIG_FOLDER
-ln -sf $YTDLP_CONFIG_FOLDER/termux-url-opener $TERMUXURLOPENER_CONFIG_FOLDER/termux-url-opener
-
-echo -e "${BLUE}Congratulations!!! Your setup is complete.${NC}\n\n"
