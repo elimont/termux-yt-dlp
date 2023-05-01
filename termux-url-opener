@@ -1,19 +1,28 @@
 #!/bin/bash
-clear
 
-PLAYLIST="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
-CHANNEL="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
+# Set the default output directory
+OUTPUT_DIR="/sdcard/Download"
+
+clear
 
 if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
     echo -e "Downloading video...\\n>URL: ${1}\\n"
+
+    # Determine if the URL is a playlist or channel
     if [[ "$1" =~ .*/playlist.* ]] || [[ "$1" =~ .*list=.* ]]; then
-        opt="$PLAYLIST"
+        OUTPUT_FORMAT="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
         echo "Playlist detected"
     else
-        opt="$CHANNEL"
+        OUTPUT_FORMAT="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
         echo "Channel detected"
     fi
-    yt-dlp -o "/sdcard/Download/$opt" -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' "$1"
+
+    # Download the video with options for subtitles, metadata, and output directory
+    yt-dlp --embed-subs --embed-metadata --write-sub --write-auto-sub \
+           -o "$OUTPUT_DIR/$OUTPUT_FORMAT" \
+           --format 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best' \
+           "$1"
+
 else
     echo "Error: No URL provided"
 fi
