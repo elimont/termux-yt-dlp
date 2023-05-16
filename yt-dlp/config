@@ -1,5 +1,15 @@
-yt-dlp --embed-subs --embed-metadata --embed-thumbnail --embed-chapters \
---sub-lang=en --sub-format=srt --merge-output-format=mkv \
---sponsorblock-mode=remove \
---no-mtime --no-abort-on-error --playlist-reverse \
--o "~/storage/downloads/%(extractor)s/%(uploader)s/%(title)s%(ext)s"
+yt-dlp --write-auto-sub
+--sub-lang=en
+--sub-format=srt
+--merge-output-format=mkv
+--embed-thumbnail
+--prefer-ffmpeg
+--extract-audio
+--audio-format m4a
+--format bestvideo+bestaudio/best
+--sponsorblock-mode=remove
+--no-mtime
+--no-abort-on-error
+--playlist-reverse
+--user-agent "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0 Safari/605.1.15"
+-o "~/storage/downloads/%(extractor)s/%(uploader)s/%(title)s.%(ext)s"
