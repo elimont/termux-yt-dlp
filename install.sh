@@ -22,4 +22,6 @@ pip install -U wheel
 pip install -U yt-dlp
 mkdir -p $TERMUXURLOPENER_CONFIG_FOLDER
 
+cp termux-url-opener "${TERMUXURLOPENER_CONFIG_FOLDER}/"
+
 echo -e "${BLUE}Congratulations!!! Your setup is complete.${NC}\n\n"
