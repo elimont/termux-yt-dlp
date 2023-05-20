@@ -2,7 +2,7 @@
 
 BLUE='\e[34m'
 NC='\e[0m'
-YTDLP_CONFIG_FOLDER="${HOME}/.config/yt-dlp/"
+
 TERMUXURLOPENER_CONFIG_FOLDER="${HOME}/bin/"
 
 echo "Hi, This script setup an environment to download various videos from various apps"
@@ -21,7 +21,5 @@ pip install -U pip
 pip install -U wheel
 pip install -U yt-dlp
 mkdir -p $TERMUXURLOPENER_CONFIG_FOLDER
-cp -r -u $YTDLP_CONFIG_FOLDER ~/.config/
-cp termux-url-opener "${TERMUXURLOPENER_CONFIG_FOLDER}/"
 
 echo -e "${BLUE}Congratulations!!! Your setup is complete.${NC}\n\n"
