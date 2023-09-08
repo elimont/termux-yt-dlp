@@ -1,12 +1,11 @@
-#!/bin/bash
-clear
+#!/bin/bashclear
 
-PLAYLIST="%(extractor)s/playlists/%(playlist_title)s_%(playlist_id)s/%(playlist_index)03d - %(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
+PLAYLIST="%(extractor)s/playlists/%(playlist_title)s/%(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
 CHANNEL="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
 WEB="%(extractor)s/%(title)s [%(id)s].%(ext)s"
 
 if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
-    echo -e "Downloading video...\\n>URL: ${1}\\n"
+    echo -e "Downloading video...\\n> URL: ${1}\\n"
     if [[ "$1" =~ .*/playlist.* ]] || [[ "$1" =~ .*list=.* ]]; then
         opt="$PLAYLIST"
         echo "Playlist detected"
@@ -14,12 +13,12 @@ if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
         opt="$CHANNEL"
         echo "Channel detected"
     fi
-    yt-dlp -o "/sdcard/Download/$opt" -f 'bestvideo[ext=mkv]+bestaudio[ext=m4a]/best[ext=mkv]/best' --embed-subs --sub-lang en "$1"
+        yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
 elif [[ "$1" =~ ^http.*$ ]]; then
-    echo -e "Downloading video...\\n>URL: ${1}\\n"
+    echo -e "Downloading video...\\n> URL: ${1}\\n"
     opt="$WEB"
     echo "Web address detected"
-    yt-dlp -o "/sdcard/Download/$opt" -f 'bestvideo[ext=mkv]+bestaudio[ext=m4a]/best[ext=mkv]/best' "$1"
+    yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
 else
     echo "Error: No URL provided"
 fi
