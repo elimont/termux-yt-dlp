@@ -1,4 +1,5 @@
-#!/bin/bashclear
+#!/bin/bash
+clear
 
 PLAYLIST="%(extractor)s/playlists/%(playlist_title)s/%(uploader)s_%(channel_id)s - %(title)s [%(id)s].%(ext)s"
 CHANNEL="%(extractor)s/%(uploader)s_%(channel_id)s/%(title)s [%(id)s].%(ext)s"
