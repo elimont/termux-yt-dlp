@@ -13,7 +13,9 @@ if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
     else
         opt="$CHANNEL"
         echo "Channel detected"
-    }
+    fi
+    
+    # Download the video
     yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
 
     # Convert the original video to .mkv format
@@ -24,6 +26,7 @@ elif [[ "$1" =~ ^http.*$ ]]; then
     opt="$WEB"
     echo "Web address detected"
     
+    # Download the video
     yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
     
     # Convert the original video to .mkv format
