@@ -14,12 +14,21 @@ if [[ "$1" =~ ^.*youtu.*$ ]] || [[ "$1" =~ ^.*youtube.*$ ]]; then
         opt="$CHANNEL"
         echo "Channel detected"
     fi
-        yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
+    yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
+    
+    #create .mkv file
+    yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}.mkv" "$1"
+    
 elif [[ "$1" =~ ^http.*$ ]]; then
     echo -e "Downloading video...\\n> URL: ${1}\\n"
     opt="$WEB"
     echo "Web address detected"
+    
     yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}" "$1"
+    
+     #create .mkv file
+    yt-dlp --no-mtime --sponsorblock-remove "sponsor,intro,outro,selfpromo,preview" --embed-subs --sub-langs "all" -f "bv+ba/b" -o "/sdcard/Download/${opt}.mkv" "$1"
+    
 else
     echo "Error: No URL provided"
 fi
